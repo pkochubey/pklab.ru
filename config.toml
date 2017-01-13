@@ -1,4 +1,4 @@
-baseurl = "locahost:1313"
+baseurl = "pklab.ru"
 languageCode = "ru-RU"
 title = "PKLab"
 theme = "hemingway"
