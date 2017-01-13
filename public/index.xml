@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>PKLab</title>
-    <link>/pklab.ru/index.xml</link>
+    <link>http://pklab.ru/index.xml</link>
     <description>Recent content on PKLab</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ru-RU</language>
     <copyright>Защитил как смог &amp;copy; &lt;a href=&#34;https://github.com/pkochubey&#34;&gt;Pavel Kochubey&lt;/a&gt; 2017</copyright>
     <lastBuildDate>Fri, 13 Jan 2017 14:00:28 +0300</lastBuildDate>
-    <atom:link href="/pklab.ru/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://pklab.ru/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Начинаем по новой</title>
-      <link>/pklab.ru/post/intro/</link>
+      <link>http://pklab.ru/post/intro/</link>
       <pubDate>Fri, 13 Jan 2017 14:00:28 +0300</pubDate>
       
-      <guid>/pklab.ru/post/intro/</guid>
+      <guid>http://pklab.ru/post/intro/</guid>
       <description>&lt;p&gt;Приветствую в шестой или уже седьмой реинкарнации блога. Сайт без рекламы, статичный с поддержкой комментариев от Disqus.&lt;/p&gt;
 
 &lt;p&gt;Здесь будет:&lt;/p&gt;
