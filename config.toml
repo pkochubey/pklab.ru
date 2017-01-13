@@ -1,4 +1,4 @@
-baseurl = "http://pklab.ru"
+baseurl = "https://pklab.ru"
 languageCode = "ru-RU"
 title = "PKLab"
 theme = "hemingway"
