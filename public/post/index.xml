@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on PKLab</title>
+    <link>locahost:1313</link>
+    <description>Recent content in Posts on PKLab</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ru-RU</language>
+    <copyright>Защитил как смог &amp;copy; &lt;a href=&#34;https://github.com/pkochubey&#34;&gt;Pavel Kochubey&lt;/a&gt; 2017</copyright>
+    <lastBuildDate>Fri, 13 Jan 2017 14:00:28 +0300</lastBuildDate>
+    <atom:link href="#ZgotmplZ" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Начинаем по новой</title>
+      <link>locahost:1313</link>
+      <pubDate>Fri, 13 Jan 2017 14:00:28 +0300</pubDate>
+      
+      <guid>locahost:1313</guid>
+      <description>&lt;p&gt;Приветствую в шестой или уже седьмой реинкарнации блога. Сайт без рекламы, статичный с поддержкой комментариев от Disqus.&lt;/p&gt;
+
+&lt;p&gt;Здесь будет:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Мысли в слух;&lt;/li&gt;
+&lt;li&gt;IoT ловушка;&lt;/li&gt;
+&lt;li&gt;Заметки про редкие виды, чего бы то не было;&lt;/li&gt;
+&lt;li&gt;Много IoT, программирование МК;&lt;/li&gt;
+&lt;li&gt;Книги, ссылки на полезные темы;&lt;/li&gt;
+&lt;li&gt;Программирование, электроника, интернет.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

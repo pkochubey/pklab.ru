@@ -1,0 +1,24 @@
+baseurl = "locahost:1313"
+languageCode = "ru-RU"
+title = "PKLab"
+theme = "hemingway"
+copyright = "Защитил как смог &copy; <a href=\"https://github.com/pkochubey\">Pavel Kochubey</a> 2017"
+disqusShortname = "pk-lab"
+googleAnalytics = ""
+
+[params]
+[params.highlight]
+style = "github"
+languages = ["go", "dockerfile"]
+
+[[params.social]]
+url = "https://github.com/pkochubey"
+fa_icon = "fa-github"
+
+[[params.social]]
+url = "https://twitter.com/pkochubey"
+fa_icon = "fa-twitter"
+
+[[params.social]]
+url = "/index.xml"
+fa_icon = "fa-rss"
