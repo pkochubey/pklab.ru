@@ -7,8 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ru-RU</language>
     <copyright>Защитил как смог &amp;copy; &lt;a href=&#34;https://github.com/pkochubey&#34;&gt;Pavel Kochubey&lt;/a&gt; 2017</copyright>
-    <lastBuildDate>Fri, 13 Jan 2017 14:00:28 +0300</lastBuildDate>
+    <lastBuildDate>Sat, 14 Jan 2017 09:21:03 +0300</lastBuildDate>
     <atom:link href="https://pklab.ru/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Как и на чем работает этот блог</title>
+      <link>https://pklab.ru/post/first-blood/</link>
+      <pubDate>Sat, 14 Jan 2017 09:21:03 +0300</pubDate>
+      
+      <guid>https://pklab.ru/post/first-blood/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;Это полностью статический сайт, опубликованный с помощью &lt;a href=&#34;https://gohugo.io&#34;&gt;Hugo&lt;/a&gt;. Статика позволяет снизить нагрузку с сервера и хранить сие на любом самом дешёвом хостинге.&lt;/li&gt;
+&lt;li&gt;На сайте включен https сертификатом от Let’s Encrypt. &lt;a href=&#34;https://gooroo.io/GoorooTHINK/Article/16420/Lets-Encrypt-Azure-Web-Apps-the-Free-and-Easy-Way/21872#.WHnMfhuLTQ4&#34;&gt;Инструкция&lt;/a&gt; по настройке для Azure Web App.&lt;/li&gt;
+&lt;li&gt;Все это находится в Azure. Служба приложения S1, это на 99% больше чем нужно для данного сайта, но со временем будут работать внешние воркеры в данной службе.&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
     
     <item>
       <title>Начинаем по новой</title>

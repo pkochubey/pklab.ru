@@ -4,7 +4,7 @@ title = "PKLab"
 theme = "hemingway"
 copyright = "Защитил как смог &copy; <a href=\"https://github.com/pkochubey\">Pavel Kochubey</a> 2017"
 disqusShortname = "pk-lab"
-googleAnalytics = ""
+googleAnalytics = "UA-8346171-9"
 
 [params]
 [params.highlight]
