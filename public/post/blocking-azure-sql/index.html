@@ -2,7 +2,7 @@
 <html lang="ru-RU">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Начинаем по новой | PKLab</title>
+<title>Блокировка в Azure SQL | PKLab</title>
 <link rel="stylesheet" href="https://pklab.ru/css/style.css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
@@ -45,21 +45,45 @@
 
 <section class="section">
   <div class="container">
-    <h2 class="subtitle is-6">13/01/2017</h2>
-    <h1 class="title">Начинаем по новой</h1>
+    <h2 class="subtitle is-6">15/01/2017</h2>
+    <h1 class="title">Блокировка в Azure SQL</h1>
     <div class="content">
-      <p>Приветствую в шестой или уже седьмой реинкарнации блога. Сайт без рекламы, статичный с поддержкой комментариев от Disqus.</p>
+      <p>Херня случается, что ж поделать, вот так работает система десятилетие и тут бац половину силектов отвалилось. Когда у вас SQL Server от Azure в виде сервиса, то поддержка части DMV&rsquo;s и DMF&rsquo;s в GUI не реализована, да и SQL не перегрузишь для временного решения этой проблемы. Необходимо разобраться кто и кого блокирует. Но если кого, можно выяснить простым запросом и понять какие таблица золочены, то узнать кем золочено можно из этого запроса:</p>
 
-<p>Здесь будет:</p>
+<pre><code>WITH Blockers AS
+    (select DISTINCT blocking_session_id as session_id
+ from sys.dm_exec_requests
+ where blocking_session_id &gt; 0
+)
+SELECT 'Blocker' as type_desc
+ , sys.dm_exec_sessions.session_id
+ , sys.dm_exec_requests.start_time
+ , sys.dm_exec_requests.status
+ , sys.dm_exec_requests.command
+ , sys.dm_exec_requests.wait_type
+ , sys.dm_exec_requests.wait_time
+ , sys.dm_exec_requests.blocking_session_id
+ , '' AS stmt_text
+FROM sys.dm_exec_sessions
+LEFT JOIN sys.dm_exec_requests ON sys.dm_exec_requests.session_id = sys.dm_exec_sessions.session_id
+INNER JOIN Blockers ON Blockers.session_id = sys.dm_exec_sessions.session_id
+UNION
+SELECT 'Victim' as type_desc
+ , sys.dm_exec_sessions.session_id
+ , sys.dm_exec_requests.start_time
+ , sys.dm_exec_requests.status
+ , sys.dm_exec_requests.command
+ , sys.dm_exec_requests.wait_type
+ , sys.dm_exec_requests.wait_time
+ , sys.dm_exec_requests.blocking_session_id
+ , ST.text AS stmt_text
+FROM sys.dm_exec_sessions
+INNER JOIN sys.dm_exec_requests ON sys.dm_exec_requests.session_id = sys.dm_exec_sessions.session_id
+CROSS APPLY SYS.DM_EXEC_SQL_TEXT(sys.dm_exec_requests.sql_handle) AS ST
+WHERE blocking_session_id &gt; 0
+</code></pre>
 
-<ul>
-<li>Мысли в слух;</li>
-<li>IoT ловушка;</li>
-<li>Заметки про редкие виды, чего бы то не было;</li>
-<li>Много IoT, программирование МК;</li>
-<li>Книги, ссылки на полезные темы;</li>
-<li>Программирование, электроника, интернет.</li>
-</ul>
+<p>В выводе ищем пару Blocker-Victim с одинаковым blocking_session_id, пишем KILL session_id и готово, блокировка снята. Далее разбирайтесь какой запрос вызвал блокировку и исправляйте проблему. В stmt_text можно увидеть запрос, который привел к блокировке, какой тип блокировки был наложен и какой был тип команды.</p>
 
     </div>
   </div>
