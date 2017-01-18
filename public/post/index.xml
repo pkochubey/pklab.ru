@@ -7,8 +7,30 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ru-RU</language>
     <copyright>Защитил как смог &amp;copy; &lt;a href=&#34;https://github.com/pkochubey&#34;&gt;Pavel Kochubey&lt;/a&gt; 2017</copyright>
-    <lastBuildDate>Sun, 15 Jan 2017 17:59:34 +0300</lastBuildDate>
+    <lastBuildDate>Wed, 18 Jan 2017 12:39:04 +0300</lastBuildDate>
     <atom:link href="https://pklab.ru/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Полная версия SQL запроса из плана выполнения</title>
+      <link>https://pklab.ru/post/azure-sql-all-query/</link>
+      <pubDate>Wed, 18 Jan 2017 12:39:04 +0300</pubDate>
+      
+      <guid>https://pklab.ru/post/azure-sql-all-query/</guid>
+      <description>&lt;p&gt;Бывает, что запросы не помещаются в стандартный вывод SMSS или XML версию плана выполнения запроса. Для этого нужно обратиться к кэшу на прямую и взять необходимые поля, в которых уж точно будет полный запрос а не его часть.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;SELECT 
+    cp.objtype AS ObjectType,
+    OBJECT_NAME(st.objectid,st.dbid) AS ObjectName,
+    cp.usecounts AS ExecutionCount,
+    st.TEXT AS QueryText,
+    qp.query_plan AS QueryPlan
+FROM 
+    sys.dm_exec_cached_plans AS cp
+    CROSS APPLY sys.dm_exec_query_plan(cp.plan_handle) AS qp
+    CROSS APPLY sys.dm_exec_sql_text(cp.plan_handle) AS st
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>Блокировка в Azure SQL</title>
