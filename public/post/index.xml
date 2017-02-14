@@ -7,8 +7,26 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ru-RU</language>
     <copyright>Защитил как смог &amp;copy; &lt;a href=&#34;https://github.com/pkochubey&#34;&gt;Pavel Kochubey&lt;/a&gt; 2017</copyright>
-    <lastBuildDate>Wed, 18 Jan 2017 12:39:04 +0300</lastBuildDate>
+    <lastBuildDate>Tue, 14 Feb 2017 16:37:30 +0300</lastBuildDate>
     <atom:link href="https://pklab.ru/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Когда не стоит покупать электронные компоненты</title>
+      <link>https://pklab.ru/post/into-furnace-aliexpress/</link>
+      <pubDate>Tue, 14 Feb 2017 16:37:30 +0300</pubDate>
+      
+      <guid>https://pklab.ru/post/into-furnace-aliexpress/</guid>
+      <description>&lt;p&gt;Не стоит тратить деньги и нервы на товары если выполняется одно из условий:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Даташит не находится на первой странице в выдаче гугла.&lt;/li&gt;
+&lt;li&gt;На готовый модуль нет документации или принципиальной схемы.&lt;/li&gt;
+&lt;li&gt;Модуль\компонент слишком новый и на него нет отзыва или примера работы реально собранного устройства.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Соблюдения простых правил позволит вам спасти часы и даже дни жизни. Список будет расширятся по мере набивания шишек.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Полная версия SQL запроса из плана выполнения</title>
