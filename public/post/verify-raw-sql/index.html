@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Проверка сырых SQL запросов | PKLab</title>
+<link rel="stylesheet" href="https://pklab.ru/css/style.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/github.min.css">
+
+
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="https://pklab.ru"><h1 class="title is-4">PKLab</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+          <a class="level-item" href="https://github.com/pkochubey">
+            <span class="icon">
+              <i class="fa fa-github"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://twitter.com/pkochubey">
+            <span class="icon">
+              <i class="fa fa-twitter"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="/index.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+          </a>
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="subtitle is-6">30/03/2017</h2>
+    <h1 class="title">Проверка сырых SQL запросов</h1>
+    <div class="content">
+      
+
+<h3 id="tl-dr">TL;DR</h3>
+
+<p>Плагин для Visual Studio, проверка сырых SQL запросов в управляемом C# коде.</p>
+
+<h3 id="чуть-подробнее">Чуть подробнее</h3>
+
+<p>Не поймите меня не правильно, я люблю ORM&rsquo;ы, разной степени навороченности. Но случаются моменты когда приходится &ldquo;деградировать&rdquo; в использовании ORM, к примеру когда нужно использовать функции базы данных которые не поддерживаются в вашей ORM или просто хотите убрать дополнительные накладные расходы в запросах.</p>
+
+<p>Что делать когда база оптимизирована, где-то денормализирована для достижения лучших показателей скорости выполнения запросов, но данных много и кэшей на всех не хватает, а Entity или Nhibernate дает не достаточную производительность? Можно вновь окунуться в ADO или взять что-то рядом к примеру Dapper.</p>
+
+<p>Использование сырых SQL запросов в управляемом коде, выглядит не так красиво как могло быть, но если гнаться не за красотой а за скоростью исполнения запросов то использование самописных запросов дает полный контроль над ситуацией. Основная проблема с быстро растущей схемой базы данных, это ее изменения, стоит переименовать столбец в базе, как у тебя падает выполнения кода в рантайме если этот кусок еще не был покрыт тестами. Мне прилично надоела подобная ситуация а с Dapper я расставаться не хотел. Порылся в каталоге расширений Visual Studio, взгрустнул и решил запилить свое.</p>
+
+<h3 id="из-чего-будем-строить">Из чего будем строить</h3>
+
+<p>Немного подумав и решив, что больше одного вечера тратить на плагин нет жаления, было решено взять несколько компонентов из NuGet, а не вручную писать парсеры\валидаторы c#\sql кода, на стадии прототипа этого более чем достаточно. И так были подключены:</p>
+
+<ul>
+<li>Microsoft Code Analysis - парсинг .net кода, дабы с меньшим количеством ошибок выдрать строки, так как способов описания множество.</li>
+<li>Dapper - исполнение SQL кода.</li>
+</ul>
+
+<p>Можно понять что логика работы\проверки кода проста как 2 копейки:</p>
+
+<ul>
+<li>Ловим событие сохранения документа\сборки проекта</li>
+<li>Парсим документ, выбираем все SQL строки</li>
+<li>Выполняем SQL конструкции через Dapper и в случае ошибки выводим сообщение в окно сообщений об ошибках</li>
+</ul>
+
+<h3 id="пишем-плагин-для-visual-studio">Пишем плагин для Visual Studio</h3>
+
+<p>Всем не угодишь, все описывать много, а выбрать небольшую часть будет иметь мало смысла, потому кому нужен код, смотрите на <a href="https://github.com/pkochubey/VerifyRawSql">GitHub</a>, каждый найдет то что ему нужно.</p>
+
+<p>В работе плагина есть следующие ограничения:</p>
+
+<ul>
+<li>Проверка осуществляется при сборке проекта или сохранении документа</li>
+<li>Необходимо наличие строки соединения с именем VRS в любом конфигурационном файле проекта.</li>
+</ul>
+
+<p>В целом поделюсь впечатленим от написания плагина. Делать его оказалось очень даже просто и вполне понятно, но я так полагаю это касается последних версий Visual Studio 2015\2017. Конечно сама студия глюкавая, со своими ограничениями и костылями, с этим приходится мириться при написании расширения.</p>
+
+<h3 id="что-в-итоге">Что в итоге</h3>
+
+<p>Расширение работает. Оно помогает мне каждый день, тем более в конце рабочего дня, когда концентрация внимания падает. При первом запуске было найдено сразу две ошибки, глубоко в легаси ядре связанным с анализом данных.
+Скачать расширение можно из репозитория или найти его через окно установки расширений Visual Studio, используйте при поиске Verify Raw SQL, это уж точно найдет.</p>
+
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+    <script type="text/javascript">
+      var disqus_shortname = 'pk-lab';
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>Защитил как смог &copy; <a href="https://github.com/pkochubey">Pavel Kochubey</a> 2017</p>
+  </div>
+</section>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/go.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/dockerfile.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-8346171-9', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
